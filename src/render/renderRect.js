@@ -1,5 +1,22 @@
-import setAttributes from '../utils/setAttributes';
-import normalizeColor from '../utils/normalizeColor';
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+
+exports.default = renderRect;
+
+var _setAttributes = require('../utils/setAttributes');
+
+var _setAttributes2 = _interopRequireDefault(_setAttributes);
+
+var _normalizeColor = require('../utils/normalizeColor');
+
+var _normalizeColor2 = _interopRequireDefault(_normalizeColor);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /**
  * Create SVGRectElements from an annotation definition.
@@ -8,24 +25,31 @@ import normalizeColor from '../utils/normalizeColor';
  * @param {Object} a The annotation definition
  * @return {SVGGElement|SVGRectElement} A group of all rects to be rendered
  */
-export default function renderRect(a) {
+function renderRect(a) {
   if (a.type === 'highlight') {
-    let group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-    setAttributes(group, {
-      fill: normalizeColor(a.color || '#ff0'),
-      fillOpacity: 0.2
-    });
-    
-    a.rectangles.forEach((r) => {
-      group.appendChild(createRect(r));
-    });
+    var _ret = function () {
+      var group = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+      (0, _setAttributes2.default)(group, {
+        fill: (0, _normalizeColor2.default)(a.color || '#ff0'),
+        fillOpacity: 0.2
+      });
 
-    return group;
+      a.rectangles.forEach(function (r) {
+        group.appendChild(createRect(r));
+      });
+
+      return {
+        v: group
+      };
+    }();
+
+    if ((typeof _ret === 'undefined' ? 'undefined' : _typeof(_ret)) === "object") return _ret.v;
   } else {
-    let rect = createRect(a);
-    setAttributes(rect, {
-      stroke: normalizeColor(a.color || '#f00'),
-      fill: 'none'
+    var rect = createRect(a);
+    (0, _setAttributes2.default)(rect, {
+      stroke: (0, _normalizeColor2.default)(a.color || '#f00'),
+      fill: 'none',
+      strokeWidth: a.strokeWidth
     });
 
     return rect;
@@ -33,9 +57,9 @@ export default function renderRect(a) {
 }
 
 function createRect(r) {
-  let rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+  var rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
 
-  setAttributes(rect, {
+  (0, _setAttributes2.default)(rect, {
     x: r.x,
     y: r.y,
     width: r.width,
