@@ -49,6 +49,12 @@ function handleDocumentMouseup(e) {
       appendChild(svg, annotation);
     });
   }
+  else {
+    lines = null;
+    if (path) {
+      path.parentNode.removeChild(path);
+    }
+  }
 
   document.removeEventListener('mousemove', handleDocumentMousemove);
   document.removeEventListener('mouseup', handleDocumentMouseup);
