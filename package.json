@@ -1,5 +1,5 @@
 {
-  "name": "pdf-annotate.js",
+  "name": "@houshuang/pdf-annotate.js",
   "version": "0.0.0",
   "description": "Annotation layer for pdf.js",
   "main": "dist/pdf-annotate.js",
