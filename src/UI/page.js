@@ -34,6 +34,25 @@ export function createPage(pageNumber) {
   return page;
 }
 
+
+
+export function renderAnnotations(pageNumber, renderOptions, viewport) {
+  if (!viewport) return;
+  var documentId = renderOptions.documentId;
+  var pdfDocument = renderOptions.pdfDocument;
+  var scale = renderOptions.scale;
+  var rotate = renderOptions.rotate;
+
+  return PDFJSAnnotate.getAnnotations(documentId, pageNumber).then((annotations) => {
+    let page = document.getElementById(`pageContainer${pageNumber}`);
+    var svg = page.querySelector('.annotationLayer');
+    
+    return PDFJSAnnotate.render(svg, viewport, annotations);
+  });
+}
+
+
+
 /**
  * Render a page that has already been created.
  *
